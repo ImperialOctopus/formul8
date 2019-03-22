@@ -1,3 +1,63 @@
-<p>
-  main works!
-</p>
+<div class="container">
+  <mat-toolbar class="mat-elevation-z6 header" color="primary">
+    <span>My Application</span>
+  </mat-toolbar>
+
+  <div class="main">
+    <mat-horizontal-stepper linear #stepper>
+      <mat-step completed="true">
+        <ng-template matStepLabel>Activities</ng-template>
+
+        <form (ngSubmit)="onSubmit()" #activityForm="ngForm">
+          <mat-form-field class="activity-input">
+            <input matInput placeholder="Activity Name" type="text" id="name" required [(ngModel)]="model.name"
+              name="name">
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit">Add</button>
+        </form>
+
+        <mat-list class=" activity-list">
+          <mat-list-item *ngFor="let activity of activities; last as last">{{activity.name}}
+            <mat-divider *ngIf="!last"></mat-divider>
+          </mat-list-item>
+        </mat-list>
+
+        <div>
+          <button mat-raised-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Money</ng-template>
+
+        <div>
+          <button mat-raised-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Motivation</ng-template>
+
+        <div>
+          <button mat-raised-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Results</ng-template>
+        You are now done.
+        <div>
+          <button mat-raised-button matStepperPrevious>Back</button>
+          <button mat-raised-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+
+    <!--
+
+-->
+  </div>
+
+  <mat-toolbar class="footer" color="primary">
+    <mat-toolbar-row>
+      <span>Custom Toolbar</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
