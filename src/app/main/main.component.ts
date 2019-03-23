@@ -38,7 +38,7 @@ export class MainComponent implements OnInit {
   }
 
   addActivity() {
-    if (this.activityName !== '') {
+    if (this.activityName !== '' && this.activities.length < 12) {
 
       const newActivity: Activity = new Activity(this.activityName);
 
