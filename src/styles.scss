@@ -11,8 +11,19 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$time-chart-primary: mat-palette($mat-indigo);
-$time-chart-accent: mat-palette($mat-pink, A200, A100, A400);
+$mat-custom: (100: #9aff95,
+500: #66cc66,
+700: #2f9a38,
+contrast: (100: $black-87-opacity,
+500: white,
+700: white));
+
+$time-chart-primary: mat-palette($mat-custom, 500, 100, 700);
+
+
+$time-chart-accent: mat-palette($mat-light-green, A200, A100, A400);
+
+
 
 // The warn palette is optional (defaults to red).
 $time-chart-warn: mat-palette($mat-red);

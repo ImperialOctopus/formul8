@@ -1,6 +1,6 @@
 <div class="container">
   <mat-toolbar class="mat-elevation-z6 header" color="primary">
-    <span>My Application</span>
+    <span>Time Chart Working Title</span>
   </mat-toolbar>
 
   <div class="main">
@@ -11,7 +11,7 @@
 
         <div class="activities-page">
           <p>
-            Instructions for activities page
+            Please enter up to 12 activities to compare.
           </p>
 
           <div class="input-container">
@@ -45,7 +45,7 @@
 
         <div class="list-page">
           <p>
-            Instructions for money page
+            Please order your activities by how financially rewarding they are.
           </p>
           <div cdkDropList (cdkDropListDropped)="moneyDrop($event)" class="list">
             <div cdkDrag *ngFor="let activity of moneyList; last as last" class="list-element">{{activity.name}}
@@ -63,7 +63,7 @@
 
         <div class="list-page">
           <p>
-            Instructions for motivation page
+            Please order your activities by how motivated you are to do them.
           </p>
           <div cdkDropList (cdkDropListDropped)="motivationDrop($event)" class="list">
             <div cdkDrag *ngFor="let activity of motivationList; last as last" class="list-element">
@@ -121,9 +121,7 @@
   </div>
 
   <mat-toolbar class="footer" color="primary">
-    <mat-toolbar-row>
-      <span>Bottom Text</span>
-    </mat-toolbar-row>
+    <span>Vivianne Child - Child Associates</span>
   </mat-toolbar>
 </div>
 
