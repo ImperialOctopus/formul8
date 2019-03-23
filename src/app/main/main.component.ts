@@ -19,22 +19,34 @@ export interface ActivityElement {
 })
 export class MainComponent implements OnInit {
 
-  isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
   constructor() { }
 
-  activities = [new Activity('Dog', 0, 0), new Activity('Lemon', 0, 0)];
+  activities = [];
+  moneyList = [];
+  motivationList = [];
 
-  model = new Activity('', 0, 0);
+  model = new Activity('');
 
   ngOnInit() {
   }
 
-  onSubmit() {
+  addActivity() {
     this.activities.push(JSON.parse(JSON.stringify(this.model)));
-    this.model = new Activity('', 0, 0);
+    this.moneyList = JSON.parse(JSON.stringify(this.activities));
+    this.motivationList = JSON.parse(JSON.stringify(this.activities));
+    this.model = new Activity('');
+  }
+
+  moneyDrop(event: CdkDragDrop<string[]>) {
+    console.log(event);
+    moveItemInArray(
+      this.activities,
+      event.previousIndex,
+      event.currentIndex
+    );
   }
 
   /*

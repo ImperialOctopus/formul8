@@ -5,10 +5,11 @@
 
   <div class="main">
     <mat-horizontal-stepper linear #stepper>
+      <!-- ACTIVITIES -->
       <mat-step completed="true">
         <ng-template matStepLabel>Activities</ng-template>
 
-        <form (ngSubmit)="onSubmit()" #activityForm="ngForm">
+        <form (ngSubmit)="addActivity()" #activityForm="ngForm">
           <mat-form-field class="activity-input">
             <input matInput placeholder="Activity Name" type="text" id="name" required [(ngModel)]="model.name"
               name="name">
@@ -16,7 +17,7 @@
           <button mat-raised-button color="primary" type="submit">Add</button>
         </form>
 
-        <mat-list class=" activity-list">
+        <mat-list class="activity-list">
           <mat-list-item *ngFor="let activity of activities; last as last">{{activity.name}}
             <mat-divider *ngIf="!last"></mat-divider>
           </mat-list-item>
@@ -26,13 +27,22 @@
           <button mat-raised-button matStepperNext>Next</button>
         </div>
       </mat-step>
+
+      <!-- MONEY -->
       <mat-step>
         <ng-template matStepLabel>Money</ng-template>
+
+        <div cdkDropList (cdkDropListDropped)="moneyDrop($event)" class="money-list">
+          <div cdkDrag *ngFor="let activity of activities; last as last" class="money-list-element">{{activity.name}}
+          </div>
+        </div>
 
         <div>
           <button mat-raised-button matStepperNext>Next</button>
         </div>
       </mat-step>
+
+      <!-- MOTIVATION -->
       <mat-step>
         <ng-template matStepLabel>Motivation</ng-template>
 
@@ -40,6 +50,8 @@
           <button mat-raised-button matStepperNext>Next</button>
         </div>
       </mat-step>
+
+      <!-- RESULTS -->
       <mat-step>
         <ng-template matStepLabel>Results</ng-template>
         You are now done.
