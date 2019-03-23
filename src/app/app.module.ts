@@ -2,6 +2,7 @@ import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 import 'hammerjs';
+import { ChartsModule } from 'ng2-charts';
 
 import { MaterialComponents } from './material-components.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ChartsModule,
     AppRoutingModule,
     MaterialComponents,
     FormsModule, ReactiveFormsModule
