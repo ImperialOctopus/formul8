@@ -1,5 +1,6 @@
 import { Activity } from '../activity';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChartOptions } from 'chart.js';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { MatTable } from '@angular/material';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -8,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import { Color } from 'ng2-charts';
 
 @Component({
   selector: 'app-main',
@@ -27,9 +30,33 @@ export class MainComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'money', 'motivation', 'total'];
 
-  resultsGraphLabels = [];
   resultsGraphData = [];
+  resultsGraphLabels = [];
   resultsGraphType = 'pie';
+  resultsGraphColors: Color[] = [/*
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }*/
+  ];
+  resultsGraphOptions: ChartOptions = {
+    responsive: true,
+    plugins: {
+      datalabels: {
+        formatter: (value, ctx) => {
+          const label = ctx.chart.data.labels[ctx.dataIndex];
+          return label;
+        },
+      },
+    },
+    cutoutPercentage: 0
+  };
+  resultsGraphLegend = true;
+  resultsGraphPlugins = [pluginDataLabels];
 
   @ViewChild(MatTable) table: MatTable<any>;
 

@@ -18,9 +18,9 @@
             <form (ngSubmit)="addActivity()" #activityForm="ngForm">
               <mat-form-field class="activity-input">
                 <input matInput placeholder="Activity Name" type="text" id="name" [(ngModel)]="activityName" name="name"
-                  autocomplete="off">
+                  autocomplete="off" color="accent">
               </mat-form-field>
-              <button mat-raised-button color="primary" type="submit">Add</button>
+              <button mat-raised-button color="accent" type="submit">Add</button>
             </form>
           </div>
 
@@ -34,7 +34,7 @@
             </mat-list-item>
           </mat-list>
           <div>
-            <button mat-raised-button matStepperNext>Next</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
           </div>
         </div>
       </mat-step>
@@ -52,7 +52,7 @@
             </div>
           </div>
           <div>
-            <button mat-raised-button matStepperNext>Next</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
           </div>
         </div>
       </mat-step>
@@ -71,7 +71,7 @@
             </div>
           </div>
           <div>
-            <button mat-raised-button matStepperNext>Next</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
           </div>
         </div>
       </mat-step>
@@ -112,8 +112,9 @@
           </table>
 
           <div style="display: block">
-            <canvas baseChart [data]="resultsGraphData" [labels]="resultsGraphLabels"
-              [chartType]="resultsGraphType"></canvas>
+            <canvas baseChart [data]="resultsGraphData" [labels]="resultsGraphLabels" [chartType]="resultsGraphType"
+              [colors]="resultsGraphColors" [options]="resultsGraphOptions" [legend]="resultsGraphLegend"
+              [plugins]="resultsGraphPlugins"></canvas>
           </div>
         </div>
       </mat-step>
