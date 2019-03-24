@@ -45,6 +45,7 @@ export class MainComponent implements OnInit {
   ];
   resultsGraphOptions: ChartOptions = {
     responsive: true,
+    aspectRatio: 1,
     plugins: {
       datalabels: {
         formatter: (value, ctx) => {
@@ -135,11 +136,26 @@ export class MainComponent implements OnInit {
 
     this.table.renderRows();
 
-    this.resultsGraphLabels = this.activities.map((a) => {
+    /*this.resultsGraphLabels = this.activities.map((a, k) => {
       return a.name;
     });
-    this.resultsGraphData = this.activities.map((a) => {
+    this.resultsGraphData = this.activities.map((a, k) => {
       return a.total;
+    });*/
+
+    this.resultsGraphLabels = [];
+    this.resultsGraphData = [];
+
+    this.activities.forEach((a, k) => {
+      if (k <= 4) {
+        this.resultsGraphLabels.push(a.name);
+        this.resultsGraphData.push(a.total);
+      } else if (k === 5) {
+        this.resultsGraphLabels.push('Everything Else');
+        this.resultsGraphData.push(a.total);
+      } else {
+        this.resultsGraphData[5] += a.total;
+      }
     });
   }
 }
