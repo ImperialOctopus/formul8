@@ -8,6 +8,15 @@
 
 .header {
   flex-shrink: 0;
+  span {
+    width: 100%;
+  }
+  .logo {
+    height: 100%;
+  }
+  .lizard {
+    height: 100%;
+  }
 }
 
 .main {
