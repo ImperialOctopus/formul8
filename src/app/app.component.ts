@@ -11,17 +11,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Color } from 'ng2-charts';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  constructor(public breakpointObserver: BreakpointObserver) { }
   title = 'time-chart';
   @ViewChild(MatTable) table: MatTable<any>;
 
   activitiesComplete = false;
+  smallScreen = false;
 
   activities = Array<Activity>();
   moneyList = Array<Activity>();
@@ -59,6 +62,18 @@ export class AppComponent {
   };
   resultsGraphLegend = true;
   resultsGraphPlugins = [pluginDataLabels];
+
+  ngOnInit() {
+    this.breakpointObserver
+      .observe(['(min-width: 550px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.smallScreen = false;
+        } else {
+          this.smallScreen = true;
+        }
+      });
+  }
 
   addActivity() {
     if (this.activityName !== '' && this.activities.length < 12) {
