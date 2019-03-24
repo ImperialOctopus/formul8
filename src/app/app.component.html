@@ -1,1 +1,138 @@
-<router-outlet></router-outlet>
+<div class="container">
+  <mat-toolbar class="mat-elevation-z6 header" color="primary">
+    <img class="logo" src="assets/icons/icon-72x72.png" alt="" />
+    <span>ime Chart Working Title</span>
+    <img class="lizard" src="assets/lizard.jpg" alt="" />
+  </mat-toolbar>
+
+  <div class="main">
+    <mat-horizontal-stepper linear #stepper (selectionChange)="stepChanged($event)">
+      <!-- ACTIVITIES -->
+      <mat-step [completed]="activitiesComplete">
+        <ng-template matStepLabel>Activities</ng-template>
+
+        <div class="activities-page">
+          <p>
+            Please enter up to 12 activities to compare.
+          </p>
+
+          <div class="input-container">
+            <form (ngSubmit)="addActivity()" #activityForm="ngForm">
+              <mat-form-field class="activity-input">
+                <input matInput placeholder="Activity Name" type="text" id="name" [(ngModel)]="activityName" name="name"
+                  autocomplete="off" color="accent">
+              </mat-form-field>
+              <button mat-raised-button color="accent" type="submit">Add</button>
+            </form>
+          </div>
+
+          <mat-list class="activity-list">
+            <mat-list-item *ngFor="let activity of activities; last as last">
+              <span>{{activity.name}}</span>
+              <button mat-icon-button (click)="removeActivity(activity)">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <mat-divider *ngIf="!last"></mat-divider>
+            </mat-list-item>
+          </mat-list>
+          <div>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </div>
+      </mat-step>
+
+      <!-- MONEY -->
+      <mat-step>
+        <ng-template matStepLabel>Money</ng-template>
+
+        <div class="list-page">
+          <p>
+            Please order your activities by how financially rewarding they are.
+          </p>
+          <div cdkDropList (cdkDropListDropped)="moneyDrop($event)" class="list">
+            <div cdkDrag *ngFor="let activity of moneyList; last as last" class="list-element">{{activity.name}}
+            </div>
+          </div>
+          <div>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </div>
+      </mat-step>
+
+      <!-- MOTIVATION -->
+      <mat-step>
+        <ng-template matStepLabel>Motivation</ng-template>
+
+        <div class="list-page">
+          <p>
+            Please order your activities by how motivated you are to do them.
+          </p>
+          <div cdkDropList (cdkDropListDropped)="motivationDrop($event)" class="list">
+            <div cdkDrag *ngFor="let activity of motivationList; last as last" class="list-element">
+              {{activity.name}}
+            </div>
+          </div>
+          <div>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </div>
+      </mat-step>
+
+      <!-- RESULTS -->
+      <mat-step>
+        <ng-template matStepLabel>Results</ng-template>
+
+        <div class="results-page">
+          <table mat-table [dataSource]="activities" class="mat-elevation-z2 results-table">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let activity"> {{activity.name}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="money">
+              <th mat-header-cell *matHeaderCellDef> Money </th>
+              <td mat-cell *matCellDef="let activity"> {{activity.money}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="motivation">
+              <th mat-header-cell *matHeaderCellDef> Motivation </th>
+              <td mat-cell *matCellDef="let activity"> {{activity.motivation}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="total">
+              <th mat-header-cell *matHeaderCellDef> Total </th>
+              <td mat-cell *matCellDef="let activity"> {{activity.total}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <div class="results-graph-container" style="display: block">
+            <canvas baseChart [data]="resultsGraphData" [labels]="resultsGraphLabels" [chartType]="resultsGraphType"
+              [colors]="resultsGraphColors" [options]="resultsGraphOptions" [legend]="resultsGraphLegend"
+              [plugins]="resultsGraphPlugins"></canvas>
+          </div>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+
+  <mat-toolbar class="footer" color="primary">
+    <a class="footer-text" href="http://childassociates.co.uk/">Vivianne Child - Child Associates</a>
+  </mat-toolbar>
+</div>
+
+<!-- PAGE BUTTONS
+<div>
+  <button mat-raised-button matStepperNext>Next</button>
+</div>
+<div>
+  <button mat-raised-button matStepperPrevious>Back</button>
+</div>
+-->
