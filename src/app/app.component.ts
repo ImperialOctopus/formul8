@@ -18,13 +18,12 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  constructor(public breakpointObserver: BreakpointObserver) { }
+export class AppComponent {
+  constructor() { }
   title = 'time-chart';
   @ViewChild(MatTable) table: MatTable<any>;
 
   activitiesComplete = false;
-  smallScreen = false;
 
   activities = Array<Activity>();
   moneyList = Array<Activity>();
@@ -62,18 +61,6 @@ export class AppComponent implements OnInit {
   };
   resultsGraphLegend = true;
   resultsGraphPlugins = [pluginDataLabels];
-
-  ngOnInit() {
-    this.breakpointObserver
-      .observe(['(min-width: 550px)'])
-      .subscribe((state: BreakpointState) => {
-        if (state.matches) {
-          this.smallScreen = false;
-        } else {
-          this.smallScreen = true;
-        }
-      });
-  }
 
   addActivity() {
     if (this.activityName !== '' && this.activities.length < 12) {

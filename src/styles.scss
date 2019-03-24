@@ -47,3 +47,14 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+
+
+@media (max-width: 549px) {
+  .mat-horizontal-stepper-header .mat-step-icon, .mat-horizontal-stepper-header .mat-step-icon-not-touched {
+    margin-right: 0 !important;
+  }
+  .mat-step-label {
+    display: none !important;
+  }
+}

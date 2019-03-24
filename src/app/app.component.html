@@ -9,7 +9,7 @@
     <mat-horizontal-stepper linear #stepper (selectionChange)="stepChanged($event)">
       <!-- ACTIVITIES -->
       <mat-step [completed]="activitiesComplete">
-        <ng-template matStepLabel><span *ngIf="!smallScreen">Activities</span></ng-template>
+        <ng-template matStepLabel>Activities</ng-template>
 
         <div class="activities-page">
           <p>
@@ -43,7 +43,7 @@
 
       <!-- MONEY -->
       <mat-step>
-        <ng-template matStepLabel><span *ngIf="!smallScreen">Money</span></ng-template>
+        <ng-template matStepLabel>Money</ng-template>
 
         <div class="list-page">
           <p>
@@ -61,7 +61,7 @@
 
       <!-- MOTIVATION -->
       <mat-step>
-        <ng-template matStepLabel><span *ngIf="!smallScreen">Motivation</span></ng-template>
+        <ng-template matStepLabel>Motivation</ng-template>
 
         <div class="list-page">
           <p>
@@ -80,7 +80,7 @@
 
       <!-- RESULTS -->
       <mat-step>
-        <ng-template matStepLabel><span *ngIf="!smallScreen">Results</span></ng-template>
+        <ng-template matStepLabel>Results</ng-template>
 
         <div class="results-page">
           <table mat-table [dataSource]="activities" class="mat-elevation-z2 results-table">
