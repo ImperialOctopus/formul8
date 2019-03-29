@@ -20,7 +20,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 })
 export class AppComponent {
   constructor() { }
-  title = 'time-chart';
+  title = 'formul8';
   @ViewChild(MatTable) table: MatTable<any>;
 
   activitiesComplete = false;

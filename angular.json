@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "time-chart": {
+    "formul8": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/time-chart",
+            "outputPath": "dist/formul8",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -65,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "time-chart:build"
+            "browserTarget": "formul8:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "time-chart:build:production"
+              "browserTarget": "formul8:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "time-chart:build"
+            "browserTarget": "formul8:build"
           }
         },
         "lint": {
@@ -94,5 +94,5 @@
       }
     }
   },
-  "defaultProject": "time-chart"
+  "defaultProject": "formul8"
 }
