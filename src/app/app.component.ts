@@ -23,15 +23,19 @@ export class AppComponent {
   title = 'formul8';
   @ViewChild(MatTable) table: MatTable<any>;
 
+  motivatorsComplete = true;
   activitiesComplete = false;
 
+  factor1;
+  factor2;
   activities = Array<Activity>();
-  moneyList = Array<Activity>();
-  motivationList = Array<Activity>();
+  factor1List = Array<Activity>();
+  factor2List = Array<Activity>();
 
+  motivatorsList: boolean[] = [false, false, false, false, false, false, false, false, false, false, false, false];
   activityName = '';
 
-  displayedColumns: string[] = ['name', 'money', 'motivation', 'total'];
+  displayedColumns: string[] = ['name', 'factor2', 'factor2', 'total'];
 
   resultsGraphData = [];
   resultsGraphLabels = [];
@@ -62,14 +66,18 @@ export class AppComponent {
   resultsGraphLegend = true;
   resultsGraphPlugins = [pluginDataLabels];
 
+  motivatorButton(index: number) {
+    this.motivatorsList[index] = !this.motivatorsList[index];
+  }
+
   addActivity() {
     if (this.activityName !== '' && this.activities.length < 12) {
 
       const newActivity: Activity = new Activity(this.activityName);
 
       this.activities.push(newActivity);
-      this.moneyList.push(newActivity);
-      this.motivationList.push(newActivity);
+      this.factor1List.push(newActivity);
+      this.factor2List.push(newActivity);
       this.activityName = '';
     }
     this.activitiesComplete = this.activities.length > 0;
@@ -80,28 +88,28 @@ export class AppComponent {
     if (index !== -1) {
       this.activities.splice(index, 1);
     }
-    index = this.moneyList.indexOf(a);
+    index = this.factor1.indexOf(a);
     if (index !== -1) {
-      this.moneyList.splice(index, 1);
+      this.factor1.splice(index, 1);
     }
-    index = this.motivationList.indexOf(a);
+    index = this.factor2.indexOf(a);
     if (index !== -1) {
-      this.motivationList.splice(index, 1);
+      this.factor2.splice(index, 1);
     }
     this.activitiesComplete = this.activities.length > 0;
   }
 
-  moneyDrop(event: CdkDragDrop<string[]>) {
+  factor1Drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(
-      this.moneyList,
+      this.factor1List,
       event.previousIndex,
       event.currentIndex
     );
   }
 
-  motivationDrop(event: CdkDragDrop<string[]>) {
+  factor2Drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(
-      this.motivationList,
+      this.factor2List,
       event.previousIndex,
       event.currentIndex
     );
@@ -114,11 +122,11 @@ export class AppComponent {
   }
 
   generateResults() {
-    this.moneyList.forEach((activity, i) => {
-      activity.money = this.moneyList.length - i;
+    this.factor1List.forEach((activity, i) => {
+      activity.factor1 = this.factor1List.length - i;
     });
-    this.motivationList.forEach((activity, i) => {
-      activity.motivation = this.motivationList.length - i;
+    this.factor2List.forEach((activity, i) => {
+      activity.factor2 = this.factor2List.length - i;
       activity.calculateValue();
     });
     this.activities = this.activities.sort((a, b) => {

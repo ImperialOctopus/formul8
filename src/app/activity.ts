@@ -1,8 +1,8 @@
 export class Activity {
 
   public name: string;
-  public money: number;
-  public motivation: number;
+  public factor1: number;
+  public factor2: number;
   public total: number;
 
   constructor(_name: string) {
@@ -10,6 +10,6 @@ export class Activity {
   }
 
   public calculateValue(): void {
-    this.total = this.money * this.motivation;
+    this.total = this.factor1 * this.factor2;
   }
 }
