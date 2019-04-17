@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Color } from 'ng2-charts';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { Motivator } from './motivator';
 
 @Component({
   selector: 'app-root',
@@ -23,19 +24,31 @@ export class AppComponent {
   title = 'formul8';
   @ViewChild(MatTable) table: MatTable<any>;
 
-  motivatorsComplete = true;
   activitiesComplete = false;
 
-  factor1;
-  factor2;
   activities = Array<Activity>();
   factor1List = Array<Activity>();
   factor2List = Array<Activity>();
-
-  motivatorsList: boolean[] = [false, false, false, false, false, false, false, false, false, false, false, false];
   activityName = '';
 
-  displayedColumns: string[] = ['name', 'factor2', 'factor2', 'total'];
+  motivatorsList: Motivator[] = [
+    new Motivator('', 'cogs'),
+    new Motivator('', 'piggy-bank'),
+    new Motivator('', 'trophy'),
+    new Motivator('', 'heart'),
+    new Motivator('', 'binoculars'),
+    new Motivator('', 'dumbbell'),
+    new Motivator('', 'pound-sign'),
+    new Motivator('', 'smile'),
+    new Motivator('', 'brain'),
+    new Motivator('', 'eye'),
+    new Motivator('', 'chart-line'),
+    new Motivator('', 'lemon')
+  ];
+  motivator1: Motivator;
+  motivator2: Motivator;
+
+  displayedColumns: string[] = ['name', 'factor1', 'factor2', 'total'];
 
   resultsGraphData = [];
   resultsGraphLabels = [];
@@ -66,8 +79,30 @@ export class AppComponent {
   resultsGraphLegend = true;
   resultsGraphPlugins = [pluginDataLabels];
 
-  motivatorButton(index: number) {
-    this.motivatorsList[index] = !this.motivatorsList[index];
+  motivatorEnable(m: Motivator) {
+    if (this.motivator1 == null) {
+      this.motivator1 = m;
+    } else if (this.motivator2 == null) {
+      this.motivator2 = m;
+    } else {
+      this.motivator2 = this.motivator1;
+      this.motivator1 = m;
+    }
+  }
+  motivatorDisable(m: Motivator) {
+    if (this.motivator1 === m) {
+      this.motivator1 = this.motivator2;
+      this.motivator2 = null;
+    }
+    if (this.motivator2 === m) {
+      this.motivator2 = null;
+    }
+  }
+  motivatorEnabled(m: Motivator): boolean {
+    return (this.motivator1 === m || this.motivator2 === m);
+  }
+  motivatorsComplete(): boolean {
+    return (this.motivator1 != null && this.motivator2 != null);
   }
 
   addActivity() {
@@ -88,13 +123,13 @@ export class AppComponent {
     if (index !== -1) {
       this.activities.splice(index, 1);
     }
-    index = this.factor1.indexOf(a);
+    index = this.factor1List.indexOf(a);
     if (index !== -1) {
-      this.factor1.splice(index, 1);
+      this.factor1List.splice(index, 1);
     }
-    index = this.factor2.indexOf(a);
+    index = this.factor2List.indexOf(a);
     if (index !== -1) {
-      this.factor2.splice(index, 1);
+      this.factor2List.splice(index, 1);
     }
     this.activitiesComplete = this.activities.length > 0;
   }

@@ -15,7 +15,18 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faCogs } from '@fortawesome/free-solid-svg-icons';
+import { faPiggyBank } from '@fortawesome/free-solid-svg-icons';
+import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faBinoculars } from '@fortawesome/free-solid-svg-icons';
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
+import { faPoundSign } from '@fortawesome/free-solid-svg-icons';
+import { faSmile } from '@fortawesome/free-solid-svg-icons';
+import { faBrain } from '@fortawesome/free-solid-svg-icons';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine } from '@fortawesome/free-solid-svg-icons';
+import { faLemon } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
@@ -35,6 +46,17 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 })
 export class AppModule {
   constructor() {
-    library.add(faCoffee);
+    library.add(faCogs);
+    library.add(faPiggyBank);
+    library.add(faTrophy);
+    library.add(faHeart);
+    library.add(faBinoculars);
+    library.add(faDumbbell);
+    library.add(faPoundSign);
+    library.add(faSmile);
+    library.add(faBrain);
+    library.add(faEye);
+    library.add(faChartLine);
+    library.add(faLemon);
   }
 }

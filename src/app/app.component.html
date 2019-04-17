@@ -7,7 +7,7 @@
   <div class="main">
     <mat-horizontal-stepper linear #stepper (selectionChange)="stepChanged($event)">
       <!-- Motivators -->
-      <mat-step [completed]="motivatorsComplete">
+      <mat-step [completed]="(motivator1 != null && motivator2 != null)">
         <ng-template matStepLabel>Motivators</ng-template>
 
         <div class="motivators-page">
@@ -15,21 +15,16 @@
             What motivates you?
           </p>
           <div class="button-grid">
-            <button *ngIf="motivatorsList[0]" mat-raised-button color="primary" class="factor-button"
-              (click)="motivatorButton(0)">
-              <fa-icon icon="coffee" class="icon"></fa-icon>
-            </button>
-            <button mat-stroked-button color="basic" class="factor-button">Next</button>
-            <button mat-stroked-button color="basic" class="factor-button">Next</button>
-            <button mat-stroked-button color="basic" class="factor-button">Next</button>
-            <button mat-stroked-button color="basic" class="factor-button">Next</button>
-            <button mat-stroked-button color="basic" class="factor-button">Next</button>
-            <button mat-stroked-button color="basic" class="factor-button">Next</button>
-            <button mat-stroked-button color="basic" class="factor-button">Next</button>
-            <button mat-stroked-button color="basic" class="factor-button">Next</button>
-            <button mat-stroked-button color="basic" class="factor-button">Next</button>
-            <button mat-stroked-button color="basic" class="factor-button">Next</button>
-            <button mat-stroked-button color="basic" class="factor-button">Next</button>
+            <div class="button-cell" *ngFor="let mot of motivatorsList">
+              <button *ngIf="motivatorEnabled(mot)" mat-raised-button color="primary" class="factor-button"
+                (click)="motivatorDisable(mot)">
+                <fa-icon [icon]="mot.icon" class="icon"></fa-icon>
+              </button>
+              <button *ngIf="!motivatorEnabled(mot)" mat-stroked-button color="basic" class="factor-button"
+                (click)="motivatorEnable(mot)">
+                <fa-icon [icon]="mot.icon" class="icon"></fa-icon>
+              </button>
+            </div>
           </div>
           <div>
             <button mat-raised-button color="primary" matStepperNext>Next</button>
@@ -73,7 +68,10 @@
 
       <!-- Factor 1 -->
       <mat-step>
-        <ng-template matStepLabel>Factor1</ng-template>
+        <ng-template matStepLabel>
+          <fa-icon *ngIf="(motivator1 != null)" [icon]="motivator1.icon" class="icon"></fa-icon>
+          <span *ngIf="(motivator1 == null)">Three</span>
+        </ng-template>
 
         <div class="list-page">
           <p>
@@ -91,7 +89,10 @@
 
       <!-- Factor 2 -->
       <mat-step>
-        <ng-template matStepLabel>Factor2</ng-template>
+        <ng-template matStepLabel>
+          <fa-icon *ngIf="(motivator2 != null)" [icon]="motivator2.icon" class="icon"></fa-icon>
+          <span *ngIf="(motivator2 == null)">Four</span>
+        </ng-template>
 
         <div class="list-page">
           <p>
@@ -121,12 +122,16 @@
             </ng-container>
 
             <ng-container matColumnDef="factor1">
-              <th mat-header-cell *matHeaderCellDef> Factor1 </th>
+              <th mat-header-cell *matHeaderCellDef>
+                <fa-icon [icon]="motivator1.icon" class="icon"></fa-icon>
+              </th>
               <td mat-cell *matCellDef="let activity"> {{activity.factor1}} </td>
             </ng-container>
 
             <ng-container matColumnDef="factor2">
-              <th mat-header-cell *matHeaderCellDef> Factor2 </th>
+              <th mat-header-cell *matHeaderCellDef>
+                <fa-icon [icon]="motivator2.icon" class="icon"></fa-icon>
+              </th>
               <td mat-cell *matCellDef="let activity"> {{activity.factor2}} </td>
             </ng-container>
 

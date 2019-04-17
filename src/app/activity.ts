@@ -5,8 +5,8 @@ export class Activity {
   public factor2: number;
   public total: number;
 
-  constructor(_name: string) {
-    this.name = _name;
+  constructor(name: string) {
+    this.name = name;
   }
 
   public calculateValue(): void {
