@@ -8,12 +8,16 @@
 
 .header {
   flex-shrink: 0;
-  span {
-    width: 100%;
-  }
-  .logo {
+  .header-image {
     height: 100%;
     margin-right: 8px;
+    img {
+      height: 100%;
+    }
+  }
+  .header-text {
+    text-decoration: unset;
+    color: unset;
   }
 }
 
