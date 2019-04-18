@@ -22,9 +22,8 @@ import { Motivator } from './motivator';
 export class AppComponent {
   constructor() { }
   title = 'formul8';
+  minActivities = 2;
   @ViewChild(MatTable) table: MatTable<any>;
-
-  activitiesComplete = false;
 
   activities = Array<Activity>();
   factor1List = Array<Activity>();
@@ -85,8 +84,8 @@ export class AppComponent {
     } else if (this.motivator2 == null) {
       this.motivator2 = m;
     } else {
-      this.motivator2 = this.motivator1;
-      this.motivator1 = m;
+      this.motivator1 = this.motivator2;
+      this.motivator2 = m;
     }
   }
   motivatorDisable(m: Motivator) {
@@ -115,7 +114,6 @@ export class AppComponent {
       this.factor2List.push(newActivity);
       this.activityName = '';
     }
-    this.activitiesComplete = this.activities.length > 0;
   }
   removeActivity(a: Activity) {
     let index: number;
@@ -131,7 +129,6 @@ export class AppComponent {
     if (index !== -1) {
       this.factor2List.splice(index, 1);
     }
-    this.activitiesComplete = this.activities.length > 0;
   }
 
   factor1Drop(event: CdkDragDrop<string[]>) {

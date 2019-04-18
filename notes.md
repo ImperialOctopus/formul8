@@ -1,15 +1,4 @@
-App
-Welcome to Formul8
 
-[First Page]
-2/ Choose your two most important motivators at this time.
-  Revenue potential
-  Enjoyment
-  How they play to my skills
-  What is currently needed in my organisation
-  Relevance to the vision of my organisation
-  Relevance to my future vision
-  My development needs
 
 3/ Please enter up to 12 areas of work or the names of projects that are exercising your
 mind. (same as the current screen 1/)
