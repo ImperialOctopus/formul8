@@ -1,58 +1,60 @@
-import { Activity } from './activity';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChartOptions } from 'chart.js';
-import { MatSort, MatTableDataSource } from '@angular/material';
-import { MatTable } from '@angular/material';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { Color } from 'ng2-charts';
-import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { Motivator } from './motivator';
+import { Activity } from "./activity";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { ChartOptions } from "chart.js";
+import { MatSort, MatTableDataSource } from "@angular/material";
+import { MatTable } from "@angular/material";
+import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { StepperSelectionEvent } from "@angular/cdk/stepper";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import * as pluginDataLabels from "chartjs-plugin-datalabels";
+import { Color } from "ng2-charts";
+import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
+import { Motivator } from "./motivator";
+import * as jsPDF from "jspdf";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  constructor() { }
-  title = 'formul8';
+  constructor() {}
+  title = "formul8";
   minActivities = 2;
   @ViewChild(MatTable) table: MatTable<any>;
 
   activities = Array<Activity>();
   factor1List = Array<Activity>();
   factor2List = Array<Activity>();
-  activityName = '';
+  activityName = "";
 
   motivatorsList: Motivator[] = [
-    new Motivator('', 'cogs'),
-    new Motivator('', 'piggy-bank'),
-    new Motivator('', 'trophy'),
-    new Motivator('', 'heart'),
-    new Motivator('', 'binoculars'),
-    new Motivator('', 'dumbbell'),
-    new Motivator('', 'pound-sign'),
-    new Motivator('', 'smile'),
-    new Motivator('', 'brain'),
-    new Motivator('', 'eye'),
-    new Motivator('', 'chart-line'),
-    new Motivator('', 'lemon')
+    new Motivator("", "cogs"),
+    new Motivator("", "piggy-bank"),
+    new Motivator("", "trophy"),
+    new Motivator("", "heart"),
+    new Motivator("", "binoculars"),
+    new Motivator("", "dumbbell"),
+    new Motivator("", "pound-sign"),
+    new Motivator("", "smile"),
+    new Motivator("", "brain"),
+    new Motivator("", "eye"),
+    new Motivator("", "chart-line"),
+    new Motivator("", "lemon")
   ];
   motivator1: Motivator;
   motivator2: Motivator;
 
-  displayedColumns: string[] = ['name', 'factor1', 'factor2', 'total'];
+  displayedColumns: string[] = ["name", "factor1", "factor2", "total"];
 
   resultsGraphData = [];
   resultsGraphLabels = [];
-  resultsGraphType = 'pie';
-  resultsGraphColors: Color[] = [/*
+  resultsGraphType = "pie";
+  resultsGraphColors: Color[] = [
+    /*
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -70,8 +72,8 @@ export class AppComponent {
         formatter: (value, ctx) => {
           const label = ctx.chart.data.labels[ctx.dataIndex];
           return label;
-        },
-      },
+        }
+      }
     },
     cutoutPercentage: 0
   };
@@ -98,21 +100,20 @@ export class AppComponent {
     }
   }
   motivatorEnabled(m: Motivator): boolean {
-    return (this.motivator1 === m || this.motivator2 === m);
+    return this.motivator1 === m || this.motivator2 === m;
   }
   motivatorsComplete(): boolean {
-    return (this.motivator1 != null && this.motivator2 != null);
+    return this.motivator1 != null && this.motivator2 != null;
   }
 
   addActivity() {
-    if (this.activityName !== '' && this.activities.length < 12) {
-
+    if (this.activityName !== "" && this.activities.length < 12) {
       const newActivity: Activity = new Activity(this.activityName);
 
       this.activities.push(newActivity);
       this.factor1List.push(newActivity);
       this.factor2List.push(newActivity);
-      this.activityName = '';
+      this.activityName = "";
     }
   }
   removeActivity(a: Activity) {
@@ -132,19 +133,11 @@ export class AppComponent {
   }
 
   factor1Drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(
-      this.factor1List,
-      event.previousIndex,
-      event.currentIndex
-    );
+    moveItemInArray(this.factor1List, event.previousIndex, event.currentIndex);
   }
 
   factor2Drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(
-      this.factor2List,
-      event.previousIndex,
-      event.currentIndex
-    );
+    moveItemInArray(this.factor2List, event.previousIndex, event.currentIndex);
   }
 
   stepChanged(event: StepperSelectionEvent) {
@@ -188,11 +181,32 @@ export class AppComponent {
         this.resultsGraphLabels.push(a.name);
         this.resultsGraphData.push(a.total);
       } else if (k === 5) {
-        this.resultsGraphLabels.push('Everything Else');
+        this.resultsGraphLabels.push("Everything Else");
         this.resultsGraphData.push(a.total);
       } else {
         this.resultsGraphData[5] += a.total;
       }
     });
+  }
+
+  async openPdf() {
+    await this.generatePdf();
+  }
+
+  async generatePdf() {
+    var doc = new jsPDF();
+
+    let canvas: HTMLCanvasElement = document.getElementById(
+      "results-graph"
+    ) as HTMLCanvasElement;
+    let img = canvas.toDataURL("image/png");
+
+    doc.setFontSize(40);
+    doc.text(35, 25, "Graph export");
+    doc.addImage(img, "JPEG", 15, 40, 180, 160);
+
+    doc.save("a4.pdf");
+
+    console.log("Done");
   }
 }

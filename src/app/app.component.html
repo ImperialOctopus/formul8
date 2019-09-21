@@ -1,7 +1,11 @@
 <div class="container">
   <mat-toolbar class="mat-elevation-z6 header" color="primary">
     <a class="header-image" href="">
-      <img class="logo" src="assets/icons/icon-72x72.png" alt="App icon, a running chameleon" />
+      <img
+        class="logo"
+        src="assets/icons/icon-72x72.png"
+        alt="App icon, a running chameleon"
+      />
     </a>
     <a class="header-text" href="">
       <span>Formul8 Priorities</span>
@@ -9,30 +13,51 @@
   </mat-toolbar>
 
   <div class="main">
-    <mat-horizontal-stepper linear #stepper (selectionChange)="stepChanged($event)">
+    <mat-horizontal-stepper
+      linear
+      #stepper
+      (selectionChange)="stepChanged($event)"
+    >
       <!-- Motivators -->
-      <mat-step [completed]="(motivator1 != null && motivator2 != null)">
+      <mat-step [completed]="motivator1 != null && motivator2 != null">
         <ng-template matStepLabel>Motivators</ng-template>
 
         <div class="motivators-page">
           <p>
-            Please select the two motivating factors which are most important to you.
+            Please select the two motivating factors which are most important to
+            you.
           </p>
           <div class="button-grid">
             <div class="button-cell" *ngFor="let mot of motivatorsList">
-              <button *ngIf="motivatorEnabled(mot)" mat-raised-button color="primary" class="factor-button"
-                (click)="motivatorDisable(mot)">
+              <button
+                *ngIf="motivatorEnabled(mot)"
+                mat-raised-button
+                color="primary"
+                class="factor-button"
+                (click)="motivatorDisable(mot)"
+              >
                 <fa-icon [icon]="mot.icon" class="icon"></fa-icon>
               </button>
-              <button *ngIf="!motivatorEnabled(mot)" mat-stroked-button color="basic" class="factor-button"
-                (click)="motivatorEnable(mot)">
+              <button
+                *ngIf="!motivatorEnabled(mot)"
+                mat-stroked-button
+                color="basic"
+                class="factor-button"
+                (click)="motivatorEnable(mot)"
+              >
                 <fa-icon [icon]="mot.icon" class="icon"></fa-icon>
               </button>
             </div>
           </div>
           <div>
-            <button [disabled]="!(motivator1 != null && motivator2 != null)" mat-raised-button color="primary"
-              matStepperNext>Next</button>
+            <button
+              [disabled]="!(motivator1 != null && motivator2 != null)"
+              mat-raised-button
+              color="primary"
+              matStepperNext
+            >
+              Next
+            </button>
           </div>
         </div>
       </mat-step>
@@ -43,23 +68,40 @@
 
         <div class="activities-page">
           <p>
-            Please enter the names of up to twelve areas of work or projects that are exercising your mind.
+            Please enter the names of up to twelve areas of work or projects
+            that are exercising your mind.
           </p>
 
           <div class="input-container">
             <form (ngSubmit)="addActivity()" #activityForm="ngForm">
               <mat-form-field class="activity-input">
-                <input matInput placeholder="Activity Name" type="text" id="name" [(ngModel)]="activityName" name="name"
-                  autocomplete="off" color="accent">
+                <input
+                  matInput
+                  placeholder="Activity Name"
+                  type="text"
+                  id="name"
+                  [(ngModel)]="activityName"
+                  name="name"
+                  autocomplete="off"
+                  color="accent"
+                />
               </mat-form-field>
-              <button [disabled]="!(activityName !== '' && activities.length < 12)" mat-raised-button color="accent"
-                type="submit">Add</button>
+              <button
+                [disabled]="!(activityName !== '' && activities.length < 12)"
+                mat-raised-button
+                color="accent"
+                type="submit"
+              >
+                Add
+              </button>
             </form>
           </div>
 
           <mat-list class="activity-list">
-            <mat-list-item *ngFor="let activity of activities; last as last; index as index">
-              <span>{{index + 1}} - {{activity.name}}</span>
+            <mat-list-item
+              *ngFor="let activity of activities; last as last; index as index"
+            >
+              <span>{{ index + 1 }} - {{ activity.name }}</span>
               <button mat-icon-button (click)="removeActivity(activity)">
                 <mat-icon>delete</mat-icon>
               </button>
@@ -67,8 +109,14 @@
             </mat-list-item>
           </mat-list>
           <div>
-            <button [disabled]="!(activities.length >= minActivities)" mat-raised-button color="primary"
-              matStepperNext>Next</button>
+            <button
+              [disabled]="!(activities.length >= minActivities)"
+              mat-raised-button
+              color="primary"
+              matStepperNext
+            >
+              Next
+            </button>
           </div>
         </div>
       </mat-step>
@@ -76,21 +124,40 @@
       <!-- Factor 1 -->
       <mat-step>
         <ng-template matStepLabel>
-          <fa-icon *ngIf="(motivator1 != null)" [icon]="motivator1.icon" class="icon"></fa-icon>
-          <span *ngIf="(motivator1 == null)">Three</span>
+          <fa-icon
+            *ngIf="motivator1 != null"
+            [icon]="motivator1.icon"
+            class="icon"
+          ></fa-icon>
+          <span *ngIf="motivator1 == null">Three</span>
         </ng-template>
 
         <div class="list-page">
           <p>
             Please order these activities by your factor:
-            <fa-icon *ngIf="(motivator1 != null)" [icon]="motivator1.icon" class="icon"></fa-icon>
+            <fa-icon
+              *ngIf="motivator1 != null"
+              [icon]="motivator1.icon"
+              class="icon"
+            ></fa-icon>
           </p>
-          <div cdkDropList (cdkDropListDropped)="factor1Drop($event)" class="list">
-            <div cdkDrag *ngFor="let activity of factor1List; last as last" class="list-element">{{activity.name}}
+          <div
+            cdkDropList
+            (cdkDropListDropped)="factor1Drop($event)"
+            class="list"
+          >
+            <div
+              cdkDrag
+              *ngFor="let activity of factor1List; last as last"
+              class="list-element"
+            >
+              {{ activity.name }}
             </div>
           </div>
           <div>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <button mat-raised-button color="primary" matStepperNext>
+              Next
+            </button>
           </div>
         </div>
       </mat-step>
@@ -98,22 +165,40 @@
       <!-- Factor 2 -->
       <mat-step>
         <ng-template matStepLabel>
-          <fa-icon *ngIf="(motivator2 != null)" [icon]="motivator2.icon" class="icon"></fa-icon>
-          <span *ngIf="(motivator2 == null)">Four</span>
+          <fa-icon
+            *ngIf="motivator2 != null"
+            [icon]="motivator2.icon"
+            class="icon"
+          ></fa-icon>
+          <span *ngIf="motivator2 == null">Four</span>
         </ng-template>
 
         <div class="list-page">
           <p>
             Please order these activities by your factor:
-            <fa-icon *ngIf="(motivator2 != null)" [icon]="motivator2.icon" class="icon"></fa-icon>
+            <fa-icon
+              *ngIf="motivator2 != null"
+              [icon]="motivator2.icon"
+              class="icon"
+            ></fa-icon>
           </p>
-          <div cdkDropList (cdkDropListDropped)="factor2Drop($event)" class="list">
-            <div cdkDrag *ngFor="let activity of factor2List; last as last" class="list-element">
-              {{activity.name}}
+          <div
+            cdkDropList
+            (cdkDropListDropped)="factor2Drop($event)"
+            class="list"
+          >
+            <div
+              cdkDrag
+              *ngFor="let activity of factor2List; last as last"
+              class="list-element"
+            >
+              {{ activity.name }}
             </div>
           </div>
           <div>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <button mat-raised-button color="primary" matStepperNext>
+              Next
+            </button>
           </div>
         </div>
       </mat-step>
@@ -123,41 +208,66 @@
         <ng-template matStepLabel>Results</ng-template>
 
         <div class="results-page">
-          <table mat-table [dataSource]="activities" class="mat-elevation-z2 results-table">
-
+          <table
+            mat-table
+            [dataSource]="activities"
+            class="mat-elevation-z2 results-table"
+          >
             <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef> Name </th>
-              <td mat-cell *matCellDef="let activity"> {{activity.name}} </td>
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let activity">{{ activity.name }}</td>
             </ng-container>
 
             <ng-container matColumnDef="factor1">
               <th mat-header-cell *matHeaderCellDef>
-                <fa-icon [icon]="(motivator1 != null) ? motivator1.icon : 'lemon'" class="icon"></fa-icon>
+                <fa-icon
+                  [icon]="motivator1 != null ? motivator1.icon : 'lemon'"
+                  class="icon"
+                ></fa-icon>
               </th>
-              <td mat-cell *matCellDef="let activity"> {{activity.factor1}} </td>
+              <td mat-cell *matCellDef="let activity">
+                {{ activity.factor1 }}
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="factor2">
               <th mat-header-cell *matHeaderCellDef>
-                <fa-icon [icon]="(motivator2 != null) ? motivator2.icon : 'lemon'" class="icon"></fa-icon>
+                <fa-icon
+                  [icon]="motivator2 != null ? motivator2.icon : 'lemon'"
+                  class="icon"
+                ></fa-icon>
               </th>
-              <td mat-cell *matCellDef="let activity"> {{activity.factor2}} </td>
+              <td mat-cell *matCellDef="let activity">
+                {{ activity.factor2 }}
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="total">
-              <th mat-header-cell *matHeaderCellDef> Total </th>
-              <td mat-cell *matCellDef="let activity"> {{activity.total}} </td>
+              <th mat-header-cell *matHeaderCellDef>Total</th>
+              <td mat-cell *matCellDef="let activity">{{ activity.total }}</td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </table>
 
           <div class="results-graph-container" style="display: block">
-            <canvas baseChart [data]="resultsGraphData" [labels]="resultsGraphLabels" [chartType]="resultsGraphType"
-              [colors]="resultsGraphColors" [options]="resultsGraphOptions" [legend]="resultsGraphLegend"
-              [plugins]="resultsGraphPlugins"></canvas>
+            <canvas
+              baseChart
+              id="results-graph"
+              [data]="resultsGraphData"
+              [labels]="resultsGraphLabels"
+              [chartType]="resultsGraphType"
+              [colors]="resultsGraphColors"
+              [options]="resultsGraphOptions"
+              [legend]="resultsGraphLegend"
+              [plugins]="resultsGraphPlugins"
+            ></canvas>
           </div>
+
+          <button mat-raised-button color="primary" (click)="openPdf()">
+            Download PDF
+          </button>
         </div>
       </mat-step>
     </mat-horizontal-stepper>
@@ -165,8 +275,8 @@
 
   <mat-toolbar class="footer" color="primary">
     <span class="footer-text">
-      &copy; Child Associates |
-      Design: <a href="https://imperialoctopus.com/">ImperialOctopus</a>
+      &copy; Child Associates | Design:
+      <a href="https://imperialoctopus.com/">Zoey Child</a>
     </span>
   </mat-toolbar>
 </div>
